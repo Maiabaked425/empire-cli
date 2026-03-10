@@ -9,9 +9,9 @@ A CLI turn-based strategy RPG where you build armies, expand your empire, and co
 
 ## Screenshots
 
-| Main Menu | Gameplay |
-|:---------:|:--------:|
-| ![Menu](assets/screenshot-menu.png) | ![Gameplay](assets/screenshot-gameplay.png) |
+![Menu](assets/screenshot-menu.png)
+
+![Gameplay](assets/screenshot-gameplay.png)
 
 ## Quick Start
 

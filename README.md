@@ -1,5 +1,8 @@
 # ⚔️ Empire CLI 👑
 
+[![npm version](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > **Status: Early MVP** — Core gameplay works. AI game master (Gemini/Ollama/Claude) coming soon.
 
 A CLI turn-based strategy RPG where you build armies, expand your empire, and conquer the world. Open source, runs in any terminal.
@@ -116,7 +119,7 @@ You get **3 actions per turn**. `look`, `info`, `status`, `help`, `save` are fre
 - [ ] Diplomacy system (alliances, trade, peace)
 - [ ] Buildings (walls, barracks, markets)
 - [ ] More maps & factions
-- [ ] npm package (`npx empire-cli`)
+- [x] npm package (`npx empire-cli`) [![npm](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
 
 ## Tech Stack
 

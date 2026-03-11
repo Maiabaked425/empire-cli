@@ -11,7 +11,7 @@ import { resolveCombat } from './engine/combat-resolver.js';
 import { recruitArmy, findArmyInTerritory, applyCasualties, getUnitsInTerritory, ensureArmyRecord } from './engine/army-manager.js';
 import { buildStructure, BUILDINGS, getRecruitGoldCost } from './engine/building-manager.js';
 import type { BuildingType } from './game-types.js';
-import { printLine, printSeparator, printStatus, printHelp, printMap, printTerritoryInfo, ICONS } from './ui/display-helpers.js';
+import { printLine, printSeparator, printStatus, printHelp, printMap, printSpatialMap, printTerritoryInfo, ICONS } from './ui/display-helpers.js';
 import { runAiTurns } from './engine/ai-turn-processor.js';
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -37,6 +37,7 @@ async function processCommand(input: string, state: GameState): Promise<boolean>
 
   switch (cmd) {
     case 'look': printMap(state); break;
+    case 'map': printSpatialMap(state); break;
     case 'status': printStatus(state); break;
     case 'help': printHelp(); break;
 
@@ -200,7 +201,7 @@ async function runGameLoop(state: GameState): Promise<void> {
   printHelp();
 
   const MAX_ACTIONS = 3; // actions per turn (look/info/status/help don't count)
-  const FREE_CMDS = new Set(['look', 'info', 'status', 'help', 'where', 'save']);
+  const FREE_CMDS = new Set(['look', 'map', 'info', 'status', 'help', 'where', 'save']);
 
   while (!state.isOver) {
     printStatus(state);

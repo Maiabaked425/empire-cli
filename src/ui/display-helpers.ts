@@ -31,7 +31,8 @@ export function printStatus(state: GameState): void {
 
 export function printHelp(): void {
   printLine(chalk.cyan('\n  Commands:'));
-  printLine('  look                        — show world map');
+  printLine('  look                        — show world map (list)');
+  printLine('  map                         — show spatial map');
   printLine('  info <territory>            — show territory details');
   printLine('  status                      — show your resources');
   printLine('  move <from> <to> [n]        — move n units between territories (all if omitted)');
@@ -61,6 +62,44 @@ export function printMap(state: GameState): void {
     const adjNames = t.adjacentTo.map((id) => state.territories.get(id)?.name ?? id).join(', ');
     printLine(chalk.gray(`     ↔ ${adjNames}`));
   }
+  printLine('');
+}
+
+// Spatial ASCII map showing territory layout with connections
+export function printSpatialMap(state: GameState): void {
+  const g = (id: string) => {
+    const t = state.territories.get(id);
+    if (!t) return '???';
+    const owner = t.owner ? state.factions.get(t.owner) : null;
+    const colorFn = owner ? ((chalk as any)[owner.color] ?? chalk.white) : chalk.gray;
+    const icon = ICONS[t.type] ?? '?';
+    const armies = t.armies > 0 ? `⚔${t.armies}` : '';
+    const star = t.owner === state.playerFactionId ? '★' : '';
+    const bldg = (t.buildings ?? []).map((b) => BUILDINGS[b]?.icon ?? '').join('');
+    // Pad name to 10 chars for alignment
+    const label = t.name.slice(0, 10).padEnd(10);
+    return `${icon}${colorFn(label)}${armies}${star}${bldg}`;
+  };
+
+  printLine(chalk.cyan('\n  ⚔️  World Map'));
+  printLine('');
+  printLine(`      ${g('northkeep')}────${g('iron_hills')}`);
+  printLine(`           │                  │`);
+  printLine(`      ${g('greenwood')}────${g('crossroads')}────${g('desert_gate')}`);
+  printLine(`           │                  │`);
+  printLine(`      ${g('silver_bay')}────${g('stonehaven')}`);
+  printLine(`                              │`);
+  printLine(`                         ${g('dragon_peak')}`);
+  printLine('');
+
+  // Legend
+  const factions = [...state.factions.values()];
+  const legend = factions.map((f) => {
+    const colorFn = (chalk as any)[f.color] ?? chalk.white;
+    const terrCount = f.territories.length;
+    return colorFn(`${f.name}(${terrCount})`);
+  }).join('  ');
+  printLine(`  ${legend}`);
   printLine('');
 }
 

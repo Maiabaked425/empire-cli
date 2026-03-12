@@ -60,7 +60,11 @@ export function runAiTurns(state: GameState): string[] {
             if (defArmy) applyCasualties(defArmy, result.defenderCasualties, oldOwner, state.armies, adj);
           }
           adj.owner = faction.id;
-          adj.armies = attackerArmy?.units ?? 0;
+          // Move surviving attackers to captured territory
+          const survivingUnits = attackerArmy?.units ?? 0;
+          territory.armies -= survivingUnits;
+          adj.armies = survivingUnits;
+          if (attackerArmy) { attackerArmy.territoryId = adjId; }
           faction.territories.push(adjId);
           log.push(`  → ${faction.name} captured ${adj.name}! ${ICONS_FIRE}`);
         } else {

@@ -1,6 +1,6 @@
 // Army recruitment, movement, and validation logic
 
-import type { Army, Faction, Territory, GameState } from '../game-types.js';
+import type { Army, Faction, Territory } from '../game-types.js';
 import { canAfford, deductResources } from './resource-calculator.js';
 import { getRecruitGoldCost } from './building-manager.js';
 
@@ -153,6 +153,9 @@ export function ensureArmyRecord(
     if (!existing) {
       const id = `army_fix_${Date.now()}`;
       armies.set(id, { id, factionId, units: territory.armies, morale: 80, territoryId: territory.id });
+    } else if (existing.units !== territory.armies) {
+      // Sync army record with territory count (territory.armies is source of truth)
+      existing.units = territory.armies;
     }
   }
 }

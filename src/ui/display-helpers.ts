@@ -31,18 +31,23 @@ export function printStatus(state: GameState): void {
 
 export function printHelp(): void {
   printLine(chalk.cyan('\n  Commands:'));
-  printLine('  look                        — show world map (list)');
-  printLine('  map                         — show spatial map');
+  printLine('  look / map                  — show world map');
   printLine('  info <territory>            — show territory details');
   printLine('  status                      — show your resources');
   printLine('  move <from> <to> [n]        — move n units between territories (all if omitted)');
   printLine('  recruit <territory> <n>     — recruit n units (3💰 + 2🍖 each)');
   printLine('  attack <from> <to>          — attack enemy territory from yours');
-  printLine('  build <territory> <type>    — build walls/barracks/market (🪵🪨)');
+  printLine('  build <territory> <type>    — build a structure (see below)');
   printLine('  next                        — end turn (enemies act after this)');
   printLine('  save [slot]                 — save game');
   printLine('  quit                        — exit game');
   printLine('  help                        — show this help');
+  printLine('');
+  printLine(chalk.cyan('  Buildings:'));
+  for (const b of Object.values(BUILDINGS)) {
+    const costParts = Object.entries(b.cost).filter(([, v]) => v > 0).map(([k, v]) => `${v}${ICONS[k] ?? k}`);
+    printLine(`  ${b.icon} ${b.label.padEnd(10)} ${costParts.join(' ').padEnd(10)} ${b.description}`);
+  }
   printLine('');
 }
 

@@ -11,7 +11,7 @@ import { resolveCombat } from './engine/combat-resolver.js';
 import { recruitArmy, findArmyInTerritory, applyCasualties, getUnitsInTerritory, ensureArmyRecord } from './engine/army-manager.js';
 import { buildStructure, BUILDINGS, getRecruitGoldCost } from './engine/building-manager.js';
 import type { BuildingType } from './game-types.js';
-import { printLine, printSeparator, printStatus, printHelp, printMap, printSpatialMap, printTerritoryInfo, ICONS } from './ui/display-helpers.js';
+import { printLine, printSeparator, printStatus, printHelp, printSpatialMap, printTerritoryInfo, ICONS } from './ui/display-helpers.js';
 import { runAiTurns } from './engine/ai-turn-processor.js';
 
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -36,7 +36,7 @@ async function processCommand(input: string, state: GameState): Promise<boolean>
   const player = state.factions.get(state.playerFactionId)!;
 
   switch (cmd) {
-    case 'look': printMap(state); break;
+    case 'look':
     case 'map': printSpatialMap(state); break;
     case 'status': printStatus(state); break;
     case 'help': printHelp(); break;
@@ -128,7 +128,11 @@ async function processCommand(input: string, state: GameState): Promise<boolean>
           oldOwner.territories = oldOwner.territories.filter((id) => id !== to.id);
         }
         to.owner = player.id;
-        to.armies = attackerArmy?.units ?? 0;
+        // Move surviving attackers to captured territory
+        const survivingUnits = attackerArmy?.units ?? 0;
+        from.armies -= survivingUnits;
+        to.armies = survivingUnits;
+        if (attackerArmy) { attackerArmy.territoryId = to.id; }
         player.territories.push(to.id);
         printLine(chalk.green(`\n  ${ICONS.flag} You captured ${to.name}!`));
         state.gameLog.push(`Turn ${state.turn}: Captured ${to.name}`);

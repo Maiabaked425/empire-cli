@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Status: Early MVP** — Core gameplay works. AI game master (Gemini/Ollama/Claude) coming soon.
+> **Status: Early MVP** — Core gameplay works. Optional AI narrator available (Gemini/Ollama).
 
 A CLI turn-based strategy RPG where you build armies, expand your empire, and conquer the world. Open source, runs in any terminal.
 
@@ -84,6 +84,19 @@ You get **3 actions per turn**. `map`, `info`, `status`, `help`, `save` are free
 | 🏛️ Barracks | 8🪵 5🪨 | Recruit costs 2💰 instead of 3💰 |
 | 🏪 Market | 10💰 5🪵 3🪨 | +2💰 income per turn |
 
+## AI Narrator (Optional)
+
+Enable epic fantasy narration for battles, turn summaries, and victories. The game works perfectly without it.
+
+**Setup:** Choose "Narrator Settings" from the main menu, then pick a provider:
+
+| Provider | Setup |
+|----------|-------|
+| **Gemini** (recommended) | Free API key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
+| **Ollama** | Install [ollama.com](https://ollama.com), run `ollama pull llama3`, no key needed |
+
+Config saved at `~/.empire-cli/config.json`.
+
 ## Roadmap
 
 - [x] Core game loop with turn-based strategy
@@ -92,7 +105,7 @@ You get **3 actions per turn**. `map`, `info`, `status`, `help`, `save` are free
 - [x] Combat system with terrain bonuses
 - [x] Save/load game
 - [x] Action limit per turn (3 actions)
-- [ ] AI Game Master (Gemini free tier / Ollama / Claude) — dynamic narration
+- [x] AI Game Master (Gemini / Ollama) — optional epic narration
 - [ ] Diplomacy system (alliances, trade, peace)
 - [x] Buildings (walls, barracks, markets)
 - [ ] More maps & factions

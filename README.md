@@ -9,9 +9,13 @@ A CLI turn-based strategy RPG where you build armies, expand your empire, and co
 
 ## Screenshots
 
-![Menu](assets/sc-menu-v2.png)
+![Menu & Setup](assets/sc-menu-v3.png)
 
-![Gameplay](assets/sc-gameplay.png)
+![Customize Empire](assets/sc-customize.png)
+
+![The Mainland](assets/sc-mainland-map.png)
+
+![The Shattered Isles](assets/sc-archipelago-map.png)
 
 ## Quick Start
 

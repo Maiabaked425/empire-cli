@@ -14,6 +14,7 @@ import type { BuildingType } from './game-types.js';
 import { printLine, printSeparator, printStatus, printHelp, printSpatialMap, printTerritoryInfo, ICONS } from './ui/display-helpers.js';
 import { runAiTurns } from './engine/ai-turn-processor.js';
 import { proposeAlliance, proposePeace, proposeTrade, getDiplomaticStatus, getFactionRelations, tickDiplomacy } from './engine/diplomacy-manager.js';
+import { ALL_MAPS } from './data/map-registry.js';
 import * as narrator from './ai/narrator.js';
 import { loadConfig, saveConfig, setupNarrator, getOrSetupNarrator } from './ai/narrator-config.js';
 
@@ -394,17 +395,33 @@ async function mainMenu(): Promise<void> {
   }
   if (choice.trim() === '5') { rl.close(); process.exit(0); }
   if (choice.trim() === '1') {
-    printLine('\nChoose your faction:');
-    printLine('  1. 🔴 Iron Legion (aggressive)');
-    printLine('  2. 🟢 Green Pact (defensive)');
-    printLine('  3. 🟡 Sand Empire (mercantile)');
-    printLine('  4. 🟣 Void Covenant (diplomatic)\n');
+    // Map selection
+    printLine('\nChoose a map:');
+    ALL_MAPS.forEach((m, i) => printLine(`  ${i + 1}. ${m.name} — ${m.description}`));
+    printLine('');
+    const mc = await ask('  Choose: ');
+    const mapIdx = parseInt(mc.trim(), 10) - 1;
+    const selectedMap = ALL_MAPS[mapIdx] ?? ALL_MAPS[0];
+    printLine(chalk.cyan(`\n  Map: ${selectedMap.name}\n`));
+
+    // Faction selection — dynamic from selected map
+    printLine('Choose your faction:');
+    const FACTION_ICONS: Record<string, string> = {
+      red: '🔴', green: '🟢', yellow: '🟡', magenta: '🟣', cyan: '🔵', blue: '🔵',
+    };
+    selectedMap.factions.forEach((f, i) => {
+      const icon = FACTION_ICONS[f.color] ?? '⚪';
+      printLine(`  ${i + 1}. ${icon} ${f.name} (${f.personality})`);
+    });
+    printLine('');
     const fc = await ask('  Choose: ');
-    const fm: Record<string, string> = { '1': 'iron_legion', '2': 'green_pact', '3': 'sand_empire', '4': 'void_covenant' };
+    const factionIdx = parseInt(fc.trim(), 10) - 1;
+    const selectedFaction = selectedMap.factions[factionIdx] ?? selectedMap.factions[0];
+
     // Init narrator from saved config
     const appConfig = loadConfig();
     narrator.init(appConfig.narrator);
-    await runGameLoop(newGame(fm[fc.trim()] ?? 'iron_legion'));
+    await runGameLoop(newGame(selectedFaction.id, selectedMap));
   } else if (choice.trim() === '2') {
     const saves = listSaves();
     if (saves.length === 0) { printLine(chalk.red('No saves found.')); return mainMenu(); }

@@ -3,8 +3,8 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { homedir } from 'os';
-import type { GameState, SaveData, Army } from '../game-types.js';
-import { DEFAULT_TERRITORIES, DEFAULT_FACTIONS } from '../data/default-world-map.js';
+import type { GameState, SaveData, Army, WorldMap } from '../game-types.js';
+import { MAINLAND_MAP } from '../data/default-world-map.js';
 
 const SAVES_DIR = join(homedir(), '.empire-cli', 'saves');
 
@@ -15,11 +15,11 @@ function ensureSavesDir(): void {
 }
 
 /**
- * Create a fresh game state with default map and factions.
+ * Create a fresh game state from a world map.
  */
-export function newGame(playerFactionId: string): GameState {
-  const territories = new Map(DEFAULT_TERRITORIES.map((t) => [t.id, { ...t }]));
-  const factions = new Map(DEFAULT_FACTIONS.map((f) => [f.id, { ...f, territories: [...f.territories] }]));
+export function newGame(playerFactionId: string, worldMap: WorldMap = MAINLAND_MAP): GameState {
+  const territories = new Map(worldMap.territories.map((t) => [t.id, { ...t }]));
+  const factions = new Map(worldMap.factions.map((f) => [f.id, { ...f, territories: [...f.territories] }]));
 
   // Build initial armies from territory data
   const armies = new Map<string, Army>();
@@ -39,6 +39,7 @@ export function newGame(playerFactionId: string): GameState {
 
   return {
     turn: 1,
+    mapId: worldMap.id,
     territories,
     factions,
     armies,
@@ -56,6 +57,7 @@ export function newGame(playerFactionId: string): GameState {
 export function toSaveData(state: GameState): SaveData {
   return {
     turn: state.turn,
+    mapId: state.mapId,
     territories: Object.fromEntries(state.territories),
     factions: Object.fromEntries(state.factions),
     armies: Object.fromEntries(state.armies),
@@ -78,6 +80,7 @@ export function fromSaveData(data: SaveData): GameState {
   }
   return {
     turn: data.turn,
+    mapId: data.mapId ?? 'mainland',
     territories: new Map(Object.entries(data.territories)),
     factions: new Map(Object.entries(data.factions)),
     armies: new Map(Object.entries(data.armies)),

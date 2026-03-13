@@ -1,6 +1,7 @@
 // UI display helpers: icons, status, map, help text
 import chalk from 'chalk';
-import type { GameState } from '../game-types.js';
+import type { GameState, WorldMap } from '../game-types.js';
+import { getMapById } from '../data/map-registry.js';
 import { findArmyInTerritory } from '../engine/army-manager.js';
 import { BUILDINGS } from '../engine/building-manager.js';
 import { getFactionRelations } from '../engine/diplomacy-manager.js';
@@ -90,7 +91,7 @@ export function printMap(state: GameState): void {
   printLine('');
 }
 
-// Spatial ASCII map showing territory layout with connections
+// Spatial ASCII map — renders layout from WorldMap.layoutIds dynamically
 export function printSpatialMap(state: GameState): void {
   const g = (id: string) => {
     const t = state.territories.get(id);
@@ -101,20 +102,28 @@ export function printSpatialMap(state: GameState): void {
     const armies = t.armies > 0 ? `⚔${t.armies}` : '';
     const star = t.owner === state.playerFactionId ? chalk.bold.green('★') : '';
     const bldg = (t.buildings ?? []).map((b) => BUILDINGS[b]?.icon ?? '').join('');
-    // Pad name to 10 chars for alignment
     const label = t.name.slice(0, 10).padEnd(10);
     return `${icon}${colorFn(label)}${armies}${star}${bldg}`;
   };
 
-  printLine(chalk.cyan('\n  ⚔️  World Map'));
+  const worldMap = getMapById(state.mapId);
+  printLine(chalk.cyan(`\n  ⚔️  ${worldMap?.name ?? 'World Map'}`));
   printLine('');
-  printLine(`      ${g('northkeep')}────${g('iron_hills')}`);
-  printLine(`           │                  │`);
-  printLine(`      ${g('greenwood')}────${g('crossroads')}────${g('desert_gate')}`);
-  printLine(`           │                  │`);
-  printLine(`      ${g('silver_bay')}────${g('stonehaven')}`);
-  printLine(`                              │`);
-  printLine(`                         ${g('dragon_peak')}`);
+
+  // Render layout rows from layoutIds
+  const layout = worldMap?.layoutIds;
+  if (layout) {
+    for (const row of layout) {
+      const parts = row.map((cell) => {
+        if (!cell) return '              '; // empty spacer
+        if (cell === '│') return '     │        '; // vertical connector
+        if (cell.includes('─')) return cell;        // horizontal connector
+        if (state.territories.has(cell)) return g(cell);
+        return cell; // fallback
+      });
+      printLine(`      ${parts.join('')}`);
+    }
+  }
   printLine('');
 
   // Legend

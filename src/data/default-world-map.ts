@@ -1,4 +1,4 @@
-// Default world map data: 8 territories, 4 starting factions
+// Default world map: "The Mainland" — 8 territories, 4 factions
 // Map layout:
 //   [Northkeep] --- [Iron Hills]
 //        |              |
@@ -8,7 +8,7 @@
 //                       |
 //                  [Dragon Peak]
 
-import type { Territory, Faction } from '../game-types.js';
+import type { Territory, Faction, WorldMap } from '../game-types.js';
 
 export const DEFAULT_TERRITORIES: Territory[] = [
   {
@@ -143,3 +143,21 @@ export const DEFAULT_FACTIONS: Faction[] = [
     totalArmies: 4,
   },
 ];
+
+/** The Mainland — default 8-territory map */
+export const MAINLAND_MAP: WorldMap = {
+  id: 'mainland',
+  name: 'The Mainland',
+  description: '8 territories, 4 factions — classic balanced map',
+  territories: DEFAULT_TERRITORIES,
+  factions: DEFAULT_FACTIONS,
+  layoutIds: [
+    ['northkeep', '────', 'iron_hills'],
+    ['│', '', '│'],
+    ['greenwood', '────', 'crossroads', '────', 'desert_gate'],
+    ['│', '', '│'],
+    ['silver_bay', '────', 'stonehaven'],
+    ['', '', '│'],
+    ['', '', 'dragon_peak'],
+  ],
+};

@@ -63,8 +63,20 @@ export interface DiplomaticRelation {
   initiatedBy: string;    // who proposed
 }
 
+/** A selectable world map with territories, factions, and spatial layout */
+export interface WorldMap {
+  id: string;
+  name: string;
+  description: string;
+  territories: Territory[];
+  factions: Faction[];
+  /** Spatial layout lines — use territory IDs as placeholders, rendered by printSpatialMap */
+  layoutIds: string[][];
+}
+
 export interface GameState {
   turn: number;
+  mapId: string;
   territories: Map<string, Territory>;
   factions: Map<string, Faction>;
   armies: Map<string, Army>;
@@ -83,6 +95,7 @@ export interface Command {
 // Serializable version for JSON save files
 export interface SaveData {
   turn: number;
+  mapId?: string;
   territories: Record<string, Territory>;
   factions: Record<string, Faction>;
   armies: Record<string, Army>;

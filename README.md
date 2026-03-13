@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Status: Early MVP** — Core gameplay works. Optional AI narrator available (Gemini/Ollama).
+> **Status: Feature Complete** — 2 maps, diplomacy, buildings, AI narrator. Play it!
 
 A CLI turn-based strategy RPG where you build armies, expand your empire, and conquer the world. Open source, runs in any terminal.
 
@@ -64,6 +64,13 @@ You get **3 actions per turn**. `map`, `info`, `status`, `help`, `save` are free
 | `help` | Show commands |
 | `quit` | Exit |
 
+## Maps
+
+| Map | Territories | Factions | Style |
+|-----|------------|----------|-------|
+| The Mainland | 8 | Iron Legion, Green Pact, Sand Empire, Void Covenant | Classic balanced |
+| The Shattered Isles | 10 | Tide Lords, Storm Kin, Flame Brood, Mist Walkers | Island chokepoints |
+
 ## Factions
 
 | Faction | Personality | Strengths |
@@ -112,7 +119,7 @@ Config saved at `~/.empire-cli/config.json`.
 - [x] AI Game Master (Gemini / Ollama) — optional epic narration
 - [x] Diplomacy system (alliances, trade, peace)
 - [x] Buildings (walls, barracks, markets)
-- [ ] More maps & factions
+- [x] More maps & factions (The Mainland + The Shattered Isles)
 - [x] npm package (`npx empire-cli`) [![npm](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
 
 ## Tech Stack

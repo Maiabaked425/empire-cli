@@ -54,7 +54,7 @@ export async function setupNarrator(
   }
 
   console.log('\n  Choose AI provider:');
-  console.log('  1. Gemini (free API key from Google)');
+  console.log('  1. Gemini (free key: aistudio.google.com/apikey)');
   console.log('  2. Ollama (local, no key needed)\n');
   const providerChoice = await askFn('  Choose [1/2]: ');
 

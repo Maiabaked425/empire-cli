@@ -112,9 +112,12 @@ async function processCommand(input: string, state: GameState): Promise<boolean>
     }
 
     case 'attack': {
-      // attack <from> <to>
-      if (args.length < 2) { printLine('Usage: attack <from> <to>'); break; }
-      const { from, to } = parseTwoTerritories(state, args);
+      // attack <from> <to> [n]
+      if (args.length < 2) { printLine('Usage: attack <from> <to> [units]'); break; }
+      const atkLastArg = args[args.length - 1];
+      const atkUnitCount = /^\d+$/.test(atkLastArg) ? parseInt(atkLastArg, 10) : 0;
+      const atkNameArgs = atkUnitCount > 0 ? args.slice(0, -1) : args;
+      const { from, to } = parseTwoTerritories(state, atkNameArgs);
       if (!from || !to) { printLine(chalk.red('Could not find those territories.')); break; }
       if (from.owner !== player.id) { printLine(chalk.red(`You don't own ${from.name}.`)); break; }
       if (to.owner === player.id) { printLine(chalk.red(`You already own ${to.name}.`)); break; }
@@ -124,14 +127,34 @@ async function processCommand(input: string, state: GameState): Promise<boolean>
       const attackerArmy = findArmyInTerritory(player.id, from.id, state.armies);
       if (!attackerArmy || attackerArmy.units === 0) { printLine(chalk.red(`No army in ${from.name}.`)); break; }
 
-      printLine(chalk.yellow(`\n  ${ICONS.fire} Battle: ${from.name} (${attackerArmy.units}) → ${to.name} (${to.armies})`));
-      const result = resolveCombat(attackerArmy.units, attackerArmy.morale, to.armies, 80, to.type, to);
+      // Split army if attacking with partial units — leave remainder as garrison
+      const MIN_ATK_GARRISON = 2;
+      let atkUnits = attackerArmy.units;
+      if (atkUnitCount > 0 && atkUnitCount < attackerArmy.units) {
+        if (attackerArmy.units - atkUnitCount < MIN_ATK_GARRISON) {
+          printLine(chalk.red(`Need at least ${MIN_ATK_GARRISON} garrison. Max attack: ${attackerArmy.units - MIN_ATK_GARRISON}`));
+          break;
+        }
+        atkUnits = atkUnitCount;
+      }
+
+      printLine(chalk.yellow(`\n  ${ICONS.fire} Battle: ${from.name} (${atkUnits}) → ${to.name} (${to.armies})`));
+      const result = resolveCombat(atkUnits, attackerArmy.morale, to.armies, 80, to.type, to);
       result.log.forEach((l) => printLine(`  ${l}`));
 
       const defenderFaction = to.owner ? state.factions.get(to.owner)?.name ?? 'Unknown' : 'Unclaimed';
-      const preAttackUnits = attackerArmy.units;
+      const preAttackUnits = atkUnits;
       const preDefenderUnits = to.armies;
-      applyCasualties(attackerArmy, result.attackerCasualties, player, state.armies, from);
+
+      // Handle partial attack: reduce source army by sent units, apply casualties to sent group
+      const garrisonLeft = attackerArmy.units - atkUnits;
+      const casualties = Math.min(result.attackerCasualties, atkUnits);
+      const survivorsFromBattle = atkUnits - casualties;
+      // Update source: keep garrison
+      attackerArmy.units = garrisonLeft;
+      from.armies = garrisonLeft;
+      player.totalArmies -= casualties;
+
       if (result.captured) {
         const oldOwner = to.owner ? state.factions.get(to.owner) : null;
         if (oldOwner) {
@@ -140,15 +163,19 @@ async function processCommand(input: string, state: GameState): Promise<boolean>
           oldOwner.territories = oldOwner.territories.filter((id) => id !== to.id);
         }
         to.owner = player.id;
-        const survivingUnits = attackerArmy?.units ?? 0;
-        from.armies -= survivingUnits;
-        to.armies = survivingUnits;
-        if (attackerArmy) { attackerArmy.territoryId = to.id; }
+        to.armies = survivorsFromBattle;
+        // Create new army record in captured territory
+        const newArmyId = `army_${Date.now()}`;
+        state.armies.set(newArmyId, { id: newArmyId, factionId: player.id, units: survivorsFromBattle, morale: attackerArmy.morale, territoryId: to.id });
+        // Clean up empty source army
+        if (attackerArmy.units <= 0) state.armies.delete(attackerArmy.id);
         player.territories.push(to.id);
-        printLine(chalk.green(`\n  ${ICONS.flag} You captured ${to.name}!`));
+        printLine(chalk.green(`\n  ${ICONS.flag} You captured ${to.name}! (${survivorsFromBattle} survivors)`));
         state.gameLog.push(`Turn ${state.turn}: Captured ${to.name}`);
       } else {
-        printLine(chalk.red(`\n  ${ICONS.skull} The attack failed.`));
+        // Failed attack — casualties already applied above
+        if (attackerArmy.units <= 0) state.armies.delete(attackerArmy.id);
+        printLine(chalk.red(`\n  ${ICONS.skull} The attack failed. Lost ${casualties} units.`));
       }
       // AI narrator: battle narration
       const battleNarration = await narrator.narrateBattle({

@@ -54,7 +54,7 @@ export function printHelp(): void {
   printLine('  status                      — show your resources');
   printLine('  move <from> <to> [n]        — move n units between territories (all if omitted)');
   printLine('  recruit <territory> <n>     — recruit n units (3💰 + 2🍖 each)');
-  printLine('  attack <from> <to>          — attack enemy territory from yours');
+  printLine('  attack <from> <to> [n]      — attack with n units (all if omitted)');
   printLine('  build <territory> <type>    — build a structure (see below)');
   printLine('  next                        — end turn (enemies act after this)');
   printLine('  save [slot]                 — save game');
@@ -105,7 +105,7 @@ export function printSpatialMap(state: GameState): void {
     const armies = t.armies > 0 ? `⚔${t.armies}` : '';
     const star = t.owner === state.playerFactionId ? chalk.bold.green('★') : '';
     const bldg = (t.buildings ?? []).map((b) => BUILDINGS[b]?.icon ?? '').join('');
-    const label = t.name.slice(0, 10).padEnd(10);
+    const label = t.name.padEnd(13);
     return `${icon}${colorFn(label)}${armies}${star}${bldg}`;
   };
 

@@ -6,6 +6,11 @@ import { findArmyInTerritory } from '../engine/army-manager.js';
 import { BUILDINGS } from '../engine/building-manager.js';
 import { getFactionRelations } from '../engine/diplomacy-manager.js';
 
+/** Strip ANSI escape codes to get visible string length */
+function stripAnsi(s: string): string {
+  return s.replace(/\x1B\[[0-9;]*m/g, '');
+}
+
 export const ICONS: Record<string, string> = {
   city: '🏰', forest: '🌲', mountain: '⛰️ ', plains: '🌾',
   gold: '💰', food: '🍖', wood: '🪵', stone: '🪨',
@@ -116,13 +121,16 @@ export function printSpatialMap(state: GameState): void {
   // Render layout rows from layoutIds
   const layout = worldMap?.layoutIds;
   if (layout) {
+    // Measure territory cell width for consistent spacing
+    const CELL_W = 20; // territory icon + padded name + armies + markers
+    const pad = (s: string, w: number) => s + ' '.repeat(Math.max(0, w - stripAnsi(s).length));
     for (const row of layout) {
       const parts = row.map((cell) => {
-        if (!cell) return '              '; // empty spacer
-        if (cell === '│') return '     │        '; // vertical connector
-        if (cell.includes('─')) return cell;        // horizontal connector
-        if (state.territories.has(cell)) return g(cell);
-        return cell; // fallback
+        if (!cell) return ' '.repeat(CELL_W);
+        if (cell === '│') return pad('     │', CELL_W);
+        if (cell.includes('─')) return cell;
+        if (state.territories.has(cell)) return pad(g(cell), CELL_W);
+        return cell;
       });
       printLine(`      ${parts.join('')}`);
     }

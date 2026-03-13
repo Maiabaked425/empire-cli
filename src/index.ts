@@ -478,8 +478,8 @@ async function showTutorial(): Promise<void> {
     [
       chalk.bold.cyan('\n  ═══ HOW TO PLAY ═══\n'),
       chalk.bold('  🎯 Goal'),
-      '  Conquer all 8 territories on the map to win.',
-      '  You start with 2 territories. Enemy factions hold the rest.',
+      '  Conquer all territories on the map to win.',
+      '  Choose a map and faction. You start with 2 territories.',
       '',
       chalk.bold('  ⏳ Turns'),
       '  Each turn you get 3 actions. Actions are:',
@@ -487,8 +487,12 @@ async function showTutorial(): Promise<void> {
       '    • move    — march armies between territories',
       '    • attack  — invade enemy territory',
       '    • build   — construct buildings',
+      '    • ally    — propose a permanent alliance',
+      '    • peace   — propose a peace treaty',
+      '    • trade   — swap resources with a faction',
+      '    • diplo   — view diplomatic relations',
       '',
-      '  Free commands (unlimited): map, info, status, help, save',
+      '  Free commands (unlimited): map, info, status, help, save, diplo',
       '  Type "next" to end your turn early.',
     ],
     // Page 2: Economy & Resources
@@ -539,7 +543,24 @@ async function showTutorial(): Promise<void> {
       '',
       chalk.bold('  💡 Tip: ') + 'Build markets early for economy, walls on borders.',
     ],
-    // Page 5: Strategy
+    // Page 5: Diplomacy
+    [
+      chalk.bold.cyan('\n  ═══ DIPLOMACY ═══\n'),
+      '  Negotiate with other factions for strategic advantage.',
+      '',
+      '  ally <faction>                              — propose a permanent alliance (they won\'t attack you)',
+      '  peace <faction>                             — propose a peace treaty (3-5 turns, no attacks)',
+      '  trade <faction> <n> <resource> for <resource>  — swap resources',
+      '  diplo                                       — view all diplomatic relations',
+      '',
+      chalk.bold('  Acceptance depends on faction personality:'),
+      '    Diplomatic factions accept most proposals',
+      '    Aggressive factions rarely accept alliances',
+      '    Weak factions (1 territory) are +30% more likely to accept',
+      '',
+      chalk.bold('  💡 Tip: ') + 'Ally with neighbors you can\'t attack yet. Trade with mercantile factions for good rates.',
+    ],
+    // Page 6: Strategy
     [
       chalk.bold.cyan('\n  ═══ STRATEGY TIPS ═══\n'),
       '  1. Don\'t rush — build your economy first (markets!)',
@@ -549,12 +570,11 @@ async function showTutorial(): Promise<void> {
       '  5. Watch enemy actions at end of turn — defend borders',
       '  6. Build barracks in your main recruiting territory',
       '  7. Build walls on border territories facing enemies',
+      '  8. Use ally/peace with weaker factions — they accept more often',
       '',
-      chalk.bold('  🏆 Factions:'),
-      '  🔴 Iron Legion  — starts strong, aggressive AI',
-      '  🟢 Green Pact   — high food/wood, defensive AI',
-      '  🟡 Sand Empire  — rich in gold, balanced AI',
-      '  🟣 Void Covenant — mountain fortress, cautious AI',
+      chalk.bold('  🏆 Maps:'),
+      '  The Mainland      — 12 territories, 6 factions',
+      '  The Shattered Isles — 14 territories, 6 factions',
     ],
   ];
 

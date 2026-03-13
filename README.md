@@ -73,12 +73,23 @@ You get **3 actions per turn**. `map`, `info`, `status`, `help`, `save` are free
 
 ## Factions
 
+**The Mainland:**
+
 | Faction | Personality | Strengths |
 |---------|-------------|-----------|
 | 🔴 Iron Legion | Aggressive | High stone, strong start |
 | 🟢 Green Pact | Defensive | High food & wood |
 | 🟡 Sand Empire | Mercantile | High gold reserves |
 | 🟣 Void Covenant | Diplomatic | Mountain fortress |
+
+**The Shattered Isles:**
+
+| Faction | Personality | Strengths |
+|---------|-------------|-----------|
+| 🔵 Tide Lords | Mercantile | High gold & food, coastal power |
+| 🔵 Storm Kin | Aggressive | High wood & stone, mountain base |
+| 🔴 Flame Brood | Aggressive | Massive stone, volcanic islands |
+| 🟣 Mist Walkers | Diplomatic | Balanced resources, forest cover |
 
 ## Resources
 

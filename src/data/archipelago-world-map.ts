@@ -226,7 +226,7 @@ export const ARCHIPELAGO_MAP: WorldMap = {
     ['stormwatch', '────', 'pearl_shoals', '────', 'ember_isle'],
     ['│', '', '│', '', '│'],
     ['driftwood', '', 'serpent_bay', '────', 'obsidian_rock'],
-    ['│', '', '│', '', '│'],
+    ['│', '', '│'],
     ['kelp_forest', '', 'fog_marsh', '────', 'skyspire'],
     ['', '', '│'],
     ['', '', 'sunken_ruins', '────', 'leviathan_cove'],

